@@ -2,8 +2,9 @@
 // @icon         https://download.megaup.net/images/favicon.ico
 // @name         UAD Universal auto download
 // @description  Automatically download file from megaup.net, 1fichier.oom, anonfiles.com, uploaded.net
-// @updateURL      https://adsbypasser.github.io/releases/adsbypasser.full.es7.meta.js
-// @downloadURL    https://adsbypasser.github.io/releases/adsbypasser.full.es7.user.js
+// @version      1.0
+// @updateURL    https://github.com/BDanielo/UAD/raw/main/UAD%20Universal%20auto%20download.user.js
+// @downloadURL  https://github.com/BDanielo/UAD/raw/main/UAD%20Universal%20auto%20download.user.js
 // @match        *.megaup.net/*
 // @match        *.zippyshare.com/*
 // @match        *.1fichier.com/*
@@ -12,6 +13,7 @@
 // @match        *.drive.google.com/*
 // @match        *.uploaded.net/*
 // @match        *.journaldupirate.net/*
+// @match        *.mega.nz/*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @run-at       document-end
 // @grant        window.close
@@ -24,8 +26,8 @@ var warn;
 var timeSelector;
 switch(window.location.hostname) {
     case 'megaup.net':
-        timeW=5100;
-        timeC=-1;
+        timeW=5300;
+        timeC=null;
         selector[0]="#btnsubmit";
         break;
     case '1fichier.com':
@@ -44,6 +46,11 @@ switch(window.location.hostname) {
     case 'www6.journaldupirate.net':
         selector[0]='input[value="Continuer pour voir le lien"]';
         selector[1]='div.alert a';
+        timeC=8000;
+        break;
+    case 'mega.nz':
+        timeW=8000;
+        selector[0]='i.download';
         timeC=8000;
         break;
 /*    case 'uptobox.com':
@@ -74,7 +81,7 @@ function select(time) {setTimeout(function() {
                 document.querySelector(selector[i]).click();
             }
         }
-        if (timeC>=0) {close();}
+        if (timeC!=null) {close();}
     }
 }, time);}
 
